@@ -3,5 +3,6 @@ pandas
 numpy
 seaborn
 matplotlib
+scikit-learn
 Jinja2
 #.e -
