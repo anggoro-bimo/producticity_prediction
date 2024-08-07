@@ -8,11 +8,12 @@ from sklearn.compose import ColumnTransformer
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, StandardScale
+from sklearn.preprocessing import OneHotEncoder, RobustScaler, StandardScaler
 
 from src.exception import CustomException
 from src.logger import logging
 
+from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
@@ -37,10 +38,9 @@ class DataTransformation:
                 'incentive',
                 'no_of_style_change', 
                 'no_of_workers',
-                'actual_productivity'
             ]
             categorical_columns = [
-                'quarter', 
+                'week', 
                 'department', 
                 'day'
             ]
@@ -59,7 +59,8 @@ class DataTransformation:
 
             cat_pipeline=Pipeline(
                 steps=[
-                ("one_hot_encoder",OneHotEncoder())
+                ("one_hot_encoder",OneHotEncoder()),
+                ("scaler",StandardScaler(with_mean=False))
                 ]
             )
 
@@ -91,12 +92,12 @@ class DataTransformation:
             preprocessing_obj=self.get_data_transformer_object()
 
             target_column_name="actual_productivity"
-            numerical_columns = ['team', 'targeted_productivity', 'smv', 'wip', 'over_time', 'incentive','no_of_style_change', 'no_of_workers','actual_productivity']
+            numerical_columns = ['team', 'targeted_productivity', 'smv', 'wip', 'over_time', 'incentive','no_of_style_change', 'no_of_workers']
 
-            input_feature_train_df=train_df.drop(columns=["date", "actual_productivity"],axis=1)
+            input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
 
-            input_feature_test_df=test_df.drop(columns=["date", "actual_productivity"],axis=1)
+            input_feature_test_df=test_df.drop(columns=[target_column_name],axis=1)
             target_feature_test_df=test_df[target_column_name]
 
             logging.info(
