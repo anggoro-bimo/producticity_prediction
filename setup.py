@@ -8,7 +8,7 @@ def get_requirements(file_path:str)->List[str]:
     """
     requirements = []
     with open(file_path) as file_obj:
-        requiremnents = file_obj.readlines()
+        requirements = file_obj.readlines()
         requirements = [req.replace('\n', '') for req in requirements] # Replace the new line space with blank
 
         # Connecting requirements to setup.py
