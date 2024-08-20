@@ -71,3 +71,40 @@ class ModelTrainer:
                
         except Exception as e:
             raise CustomException(e,sys)
+      
+        
+    def rf_trainer(self,train_array,test_array):
+        try:
+            logging.info("Split training and test input data")
+            X_train,y_train,X_test,y_test=(
+                train_array[:,:-1],
+                train_array[:,-1],
+                test_array[:,:-1],
+                test_array[:,-1]
+            )
+            
+            logging.info("Train the model with the Hyperparameter Tuning results")
+            model = RandomForestRegressor(n_estimators=300, 
+                                  min_samples_split=5, 
+                                  min_samples_leaf=4, 
+                                  max_depth=20, 
+                                  criterion='squared_error', 
+                                  random_state=45)
+            
+            model.fit(X_train, y_train)  # Train model
+            
+            save_object(
+                file_path=self.model_trainer_config.trained_model_file_path,
+                obj=model
+            )
+            logging.info("The model detail saved as Pickle file")
+            
+            y_train_pred = model.predict(X_train)
+            y_test_pred = model.predict(X_test)
+
+            train_model_score = r2_score(y_train, y_train_pred)
+            test_model_score = r2_score(y_test, y_test_pred)
+            
+            return test_model_score
+        except Exception as e:
+            raise CustomException(e,sys)
