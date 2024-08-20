@@ -1,0 +1,117 @@
+<html>
+<body>
+    <div class="login">
+       <h1>Garment Factory Employee's Indicator</h1>
+   
+       <form action="{{ url_for('predict_datapoint')}}" method="post">
+        <h1>
+            <legend>Productivity Prediction</legend>
+        </h1>
+        <div class="mb-3">
+            <label class="form-label">Day</label>
+            <select class="form-control" name="day" placeholder="Day of the week" required>
+                <option class="placeholder" selected disabled value="">Day of the week</option>
+                <option value="Sunday">
+                    Sunday
+                </option>
+                <option value="Monday">
+                    Monday
+                </option>
+              	<option value="Tuesday">
+                    Tuesday
+                </option>
+              	<option value="Wednesday">
+                    Wednesday
+                </option>
+              	<option value="Thursday">
+                    Thursday
+                </option>
+              	<option value="Saturday">
+                    Saturday
+                </option>
+              
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Week</label>
+            <select class="form-control" name="week" placeholder="Week of the month" required>
+                <option class="placeholder" selected disabled value="">Week of the month</option>
+                <option value="Week1">
+                    Week1
+                </option>
+                <option value="Week2">
+                    Week2
+                </option>
+                <option value="Week3">
+                    Week3
+                </option>
+                <option value="Week4">
+                    Week4
+                </option>
+                <option value="Week5">
+                    Week5
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Department</label>
+            <select class="form-control" name="department"
+                placeholder="Enter your Department" required>
+                <option class="placeholder" selected disabled value="">Select Job's Department</option>
+                <option value="sewing">
+                    Sewing
+                </option>
+                <option value="finishing">
+                    Finishing
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Total Working Team</label>
+            <input class="form-control" type="number" name="team"
+                placeholder="Enter the number of team" min='1' max='12' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Targeted Productivity</label>
+            <input class="form-control" type="number" name="targeted_productivity"
+                placeholder="Set the expected productivity value" min='0.5' max='1' step='0.1' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Standard Minute Value (SMV)</label>
+            <input class="form-control" type="number" name="smv"
+                placeholder="Enter the value" min='2.90' max='54.56' step='0.01' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Work in Progress (WIP)</label>
+            <input class="form-control" type="number" name="wip"
+                placeholder="Enter the value" min='7' max='1871' />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Workers' Overtime</label>
+            <input class="form-control" type="number" name="over_time"
+                placeholder="Enter the value in minute" min='0' max='15000'  />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Workers' Incentive</label>
+            <input class="form-control" type="number" name="incentive"
+                placeholder="Enter the value in BDT" min='0' max='113'  />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Number of Style Change</label>
+            <input class="form-control" type="number" name="no_of_style_change"
+                placeholder="Enter the value" min='0' max='2'  />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Number of Workers</label>
+            <input class="form-control" type="number" name="no_of_workers"
+                placeholder="Enter the value" min='2' max='89'  />
+        </div>
+        <div class="mb-3">
+            <input class="btn btn-primary" type="submit" value="Predict the Actual Productivity" required />
+        </div>
+    </form>
+    <h2>
+       The predicted Actual Productivity is {{results}}
+    </h2>
+   <body>
+</html>

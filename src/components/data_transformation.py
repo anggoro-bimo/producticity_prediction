@@ -53,7 +53,7 @@ class DataTransformation:
                                             max_value = 1871, 
                                             initial_strategy = 'constant', 
                                             random_state = 46)),
-                ("scaler",RobustScaler())
+                ("scaler",StandardScaler())
                 ]
             )
 
